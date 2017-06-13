@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tfkj.zongjiao.dao.RelgPerDao">
+	<select id="findTest" parameterType="com.tfkj.zongjiao.entity.RelgPer" resultType="com.tfkj.zongjiao.entity.RelgPer">
+		SELECT
+		id
+		FROM relg_per a
+	</select>
+	<select id="getExportData" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT
+		count(*)
+		FROM relg_per a
+		WHERE
+		a.region = #{_parameter}
+	</select>
+	<select id="getDataCount" resultType="java.lang.Integer">
+		SELECT
+			count(*)
+		FROM (
+		SELECT 1
+		FROM relg_per a
+		<where>
+			a.del_flag = '0'
+			<if test="name != null and name != ''">
+				AND a.name LIKE '%'||#{name}||'%'
+			</if>
+			<if test="sex != null and sex != ''">
+				AND a.sex = #{sex}
+			</if>
+			<if test="birthB != null and birthB != ''">
+				<![CDATA[AND a.birth >= #{birthB} ]]>
+			</if>
+			<if test="birthA != null and birthA != ''">
+				<![CDATA[AND a.birth <= #{birthA} ]]>
+			</if>
+			<if test="nation != null and nation != ''">
+				AND a.nation = #{nation}
+			</if>
+			<if test="nativePlaceP != null and nativePlaceP != ''">
+				AND a.native_place_p = #{nativePlaceP}
+			</if>
+			<if test="nativePlaceC != null and nativePlaceC != ''">
+				AND a.native_place_c = #{nativePlaceC}
+			</if>
+			<if test="nativePlaceA != null and nativePlaceA != ''">
+				AND a.native_place_a = #{nativePlaceA}
+			</if>
+			<if test="birthplaceP != null and birthplaceP != ''">
+				AND a.birthplace_p = #{birthplaceP}
+			</if>
+			<if test="birthplaceC != null and birthplaceC != ''">
+				AND a.birthplace_c = #{birthplaceC}
+			</if>
+			<if test="birthplaceA != null and birthplaceA != ''">
+				AND a.birthplace_a = #{birthplaceA}
+			</if>
+			<if test="religion != null and religion != ''">
+				AND a.religion = #{religion}
+			</if>
+			<if test="education != null and education != ''">
+				AND a.education = #{education}
+			</if>
+			<if test="identityCode != null and identityCode != ''">
+				AND a.identity_code = #{identityCode}
+			</if>
+			<if test="proEducation != null and proEducation != ''">
+				AND a.pro_education = #{proEducation}
+			</if>
+			<if test="reglPlace != null and reglPlace != ''">
+				AND a.regl_place LIKE '%'||#{reglPlace}||'%'
+			</if>
+			<if test="socialPosition != null and socialPosition != ''">
+				AND a.social_position LIKE '%'||#{socialPosition}||'%'
+			</if>
+			<if test="idCardNo != null and idCardNo != ''">
+				AND a.id_card_no = #{idCardNo}
+			</if>
+		</where>
+			) b
+	</select>
+	<sql id="relgPerColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.sex AS "sex",
+		a.relg_name_code AS "relgNameCode",
+		a.relg_name AS "relgName",
+		a.birth AS "birth",
+		a.photo AS "photo",
+		a.nation AS "nation",
+		a.native_place_p AS "nativePlaceP",
+		a.native_place_c AS "nativePlaceC",
+		a.native_place_a AS "nativePlaceA",
+		a.birthplace_p AS "birthplaceP",
+		a.birthplace_c AS "birthplaceC",
+		a.birthplace_a AS "birthplaceA",
+		a.politics_status AS "politicsStatus",
+		a.party_time AS "partyTime",
+		a.starting_work_time AS "startingWorkTime",
+		a.work_unit_position AS "workUnitPosition",
+		a.domicile_place_p AS "domicilePlaceP",
+		a.domicile_place_c AS "domicilePlaceC",
+		a.domicile_place_a AS "domicilePlaceA",
+		a.religion AS "religion",
+		a.relg_identity AS "relgIdentity",
+		a.starting_relg_time AS "startingRelgTime",
+		a.regl_place AS "reglPlace",
+		a.relg_position AS "relgPosition",
+		a.health AS "health",
+		a.education AS "education",
+		a.school AS "school",
+		a.pro_education AS "proEducation",
+		a.pro_school AS "proSchool",
+		a.regl_education AS "reglEducation",
+		a.regl_school AS "reglSchool",
+		a.id_card_no AS "idCardNo",
+		a.contact AS "contact",
+		a.social_position AS "socialPosition",
+		a.resume AS "resume",
+		a.winning_record AS "winningRecord",
+		a.results AS "results",
+		a.region AS "region",
+		a.identity_code AS "identityCode",
+		a.commit_flag AS "commitFlag",
+		a.enter_trml AS "enterTrml",
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	<sql id="relgPerJoins">
+	</sql>
+
+
+
+	<select id="findList" resultType="com.tfkj.zongjiao.entity.RelgPer">
+		SELECT 
+			<include refid="relgPerColumns"/>
+		FROM relg_per a
+		<include refid="relgPerJoins"/>
+		<where>
+			a.del_flag = '0'
+			<if test="name != null and name != ''">
+				AND a.name LIKE '%'||#{name}||'%'
+			</if>
+			<if test="sex != null and sex != ''">
+				AND a.sex = #{sex}
+			</if>
+			<if test="birthB != null and birthB != ''">
+				<![CDATA[AND a.birth >= #{birthB} ]]>
+			</if>
+			<if test="birthA != null and birthA != ''">
+				<![CDATA[AND a.birth <= #{birthA} ]]>
+			</if>
+			<if test="nation != null and nation != ''">
+				AND a.nation = #{nation}
+			</if>
+			<if test="nativePlaceP != null and nativePlaceP != ''">
+				AND a.native_place_p = #{nativePlaceP}
+			</if>
+			<if test="nativePlaceC != null and nativePlaceC != ''">
+				AND a.native_place_c = #{nativePlaceC}
+			</if>
+			<if test="nativePlaceA != null and nativePlaceA != ''">
+				AND a.native_place_a = #{nativePlaceA}
+			</if>
+			<if test="birthplaceP != null and birthplaceP != ''">
+				AND a.birthplace_p = #{birthplaceP}
+			</if>
+			<if test="birthplaceC != null and birthplaceC != ''">
+				AND a.birthplace_c = #{birthplaceC}
+			</if>
+			<if test="birthplaceA != null and birthplaceA != ''">
+				AND a.birthplace_a = #{birthplaceA}
+			</if>
+			<if test="religion != null and religion != ''">
+				AND a.religion = #{religion}
+			</if>
+			<if test="education != null and education != ''">
+				AND a.education = #{education}
+			</if>
+			<if test="identityCode != null and identityCode != ''">
+				AND a.identity_code = #{identityCode}
+			</if>
+			<if test="proEducation != null and proEducation != ''">
+				AND a.pro_education = #{proEducation}
+			</if>
+			<if test="reglPlace != null and reglPlace != ''">
+				AND a.regl_place LIKE '%'||#{reglPlace}||'%'
+			</if>
+			<if test="socialPosition != null and socialPosition != ''">
+				AND a.social_position  LIKE '%'||#{socialPosition}||'%'
+			</if>
+			<if test="region != null and region != ''">
+				AND a.region = #{region}
+			</if>
+			<if test="region != null and region != ''">
+				AND a.region = #{region}
+			</if>
+			<if test="idCardNo != null and idCardNo != ''">
+				AND a.id_card_no = #{idCardNo}
+			</if>
+		</where>
+			ORDER BY a.update_date DESC
+			OFFSET #{srow} ROWS FETCH NEXT 30 ROWS ONLY   
+	</select>
+
+	<select id="get" resultType="com.tfkj.zongjiao.entity.RelgPer">
+		SELECT 
+			<include refid="relgPerColumns"/>
+		FROM relg_per a
+		<include refid="relgPerJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<update id="delete">
+		UPDATE relg_per SET 
+			del_flag = '1'
+		WHERE id = #{id}
+	</update>
+	
+	<select id="export" parameterType="java.lang.String" resultType="com.tfkj.zongjiao.entity.RelgPer">
+		SELECT 
+			<include refid="relgPerColumns"/>
+		FROM relg_per a
+		<where>
+			<if test="_parameter != null and _parameter != ''">
+				a.region = #{_parameter}
+			</if>
+		</where>
+	</select>
+	<delete id="deleteAll">
+		DELETE FROM relg_per
+	</delete>
+	<insert id="insert">
+	<![CDATA[
+		INSERT INTO relg_per(
+			id,
+			name,
+			sex,
+			relg_name_code,
+			relg_name,
+			birth,
+			photo,
+			nation,
+			native_place_p,
+			native_place_c,
+			native_place_a,
+			birthplace_p,
+			birthplace_c,
+			birthplace_a,
+			politics_status,
+			party_time,
+			starting_work_time,
+			work_unit_position,
+			domicile_place_p,
+			domicile_place_c,
+			domicile_place_a,
+			religion,
+			relg_identity,
+			starting_relg_time,
+			regl_place,
+			relg_position,
+			health,
+			education,
+			school,
+			pro_education,
+			pro_school,
+			regl_education,
+			regl_school,
+			id_card_no,
+			contact,
+			social_position,
+			resume,
+			winning_record,
+			results,
+			region,
+			identity_code,
+			commit_flag,
+			enter_trml,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id, jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{sex, jdbcType=VARCHAR},
+			#{relgNameCode, jdbcType=VARCHAR},
+			#{relgName, jdbcType=VARCHAR},
+			#{birth, jdbcType=VARCHAR},
+			#{photo, jdbcType=VARCHAR},
+			#{nation, jdbcType=VARCHAR},
+			#{nativePlaceP, jdbcType=VARCHAR},
+			#{nativePlaceC, jdbcType=VARCHAR},
+			#{nativePlaceA, jdbcType=VARCHAR},
+			#{birthplaceP, jdbcType=VARCHAR},
+			#{birthplaceC, jdbcType=VARCHAR},
+			#{birthplaceA, jdbcType=VARCHAR},
+			#{politicsStatus, jdbcType=VARCHAR},
+			#{partyTime, jdbcType=VARCHAR},
+			#{startingWorkTime, jdbcType=VARCHAR},
+			#{workUnitPosition, jdbcType=VARCHAR},
+			#{domicilePlaceP, jdbcType=VARCHAR},
+			#{domicilePlaceC, jdbcType=VARCHAR},
+			#{domicilePlaceA, jdbcType=VARCHAR},
+			#{religion, jdbcType=VARCHAR},
+			#{relgIdentity, jdbcType=VARCHAR},
+			#{startingRelgTime, jdbcType=VARCHAR},
+			#{reglPlace, jdbcType=VARCHAR},
+			#{relgPosition, jdbcType=VARCHAR},
+			#{health, jdbcType=VARCHAR},
+			#{education, jdbcType=VARCHAR},
+			#{school, jdbcType=VARCHAR},
+			#{proEducation, jdbcType=VARCHAR},
+			#{proSchool, jdbcType=VARCHAR},
+			#{reglEducation, jdbcType=VARCHAR},
+			#{reglSchool, jdbcType=VARCHAR},
+			#{idCardNo, jdbcType=VARCHAR},
+			#{contact, jdbcType=VARCHAR},
+			#{socialPosition, jdbcType=VARCHAR},
+			#{resume, jdbcType=VARCHAR},
+			#{winningRecord, jdbcType=VARCHAR},
+			#{results, jdbcType=VARCHAR},
+			#{region, jdbcType=VARCHAR},
+			#{identityCode, jdbcType=VARCHAR},
+			#{commitFlag, jdbcType=VARCHAR},
+			#{enterTrml, jdbcType=VARCHAR},
+			#{createBy, jdbcType=VARCHAR},
+			#{createDate, jdbcType=VARCHAR},
+			#{updateBy, jdbcType=VARCHAR},
+			#{updateDate, jdbcType=VARCHAR},
+			#{remarks, jdbcType=VARCHAR},
+			#{delFlag, jdbcType=VARCHAR}
+		)
+		]]>
+	</insert>
+	
+	<update id="update">
+		UPDATE relg_per SET 	
+			name = #{name, jdbcType=VARCHAR},
+			sex = #{sex, jdbcType=VARCHAR},
+			relg_name_code = #{relgNameCode, jdbcType=VARCHAR},
+			relg_name = #{relgName, jdbcType=VARCHAR},
+			birth = #{birth, jdbcType=VARCHAR},
+			photo = #{photo, jdbcType=VARCHAR},
+			nation = #{nation, jdbcType=VARCHAR},
+			native_place_p = #{nativePlaceP, jdbcType=VARCHAR},
+			native_place_c = #{nativePlaceC, jdbcType=VARCHAR},
+			native_place_a = #{nativePlaceA, jdbcType=VARCHAR},
+			birthplace_p = #{birthplaceP, jdbcType=VARCHAR},
+			birthplace_c = #{birthplaceC, jdbcType=VARCHAR},
+			birthplace_a = #{birthplaceA, jdbcType=VARCHAR},
+			politics_status = #{politicsStatus, jdbcType=VARCHAR},
+			party_time = #{partyTime, jdbcType=VARCHAR},
+			starting_work_time = #{startingWorkTime, jdbcType=VARCHAR},
+			work_unit_position = #{workUnitPosition, jdbcType=VARCHAR},
+			domicile_place_p = #{domicilePlaceP, jdbcType=VARCHAR},
+			domicile_place_c = #{domicilePlaceC, jdbcType=VARCHAR},
+			domicile_place_a = #{domicilePlaceA, jdbcType=VARCHAR},
+			religion = #{religion, jdbcType=VARCHAR},
+			relg_identity = #{relgIdentity, jdbcType=VARCHAR},
+			starting_relg_time = #{startingRelgTime, jdbcType=VARCHAR},
+			regl_place = #{reglPlace, jdbcType=VARCHAR},
+			relg_position = #{relgPosition, jdbcType=VARCHAR},
+			health = #{health, jdbcType=VARCHAR},
+			education = #{education, jdbcType=VARCHAR},
+			school = #{school, jdbcType=VARCHAR},
+			pro_education = #{proEducation, jdbcType=VARCHAR},
+			pro_school = #{proSchool, jdbcType=VARCHAR},
+			regl_education = #{reglEducation, jdbcType=VARCHAR},
+			regl_school = #{reglSchool, jdbcType=VARCHAR},
+			id_card_no = #{idCardNo, jdbcType=VARCHAR},
+			contact = #{contact, jdbcType=VARCHAR},
+			social_position = #{socialPosition, jdbcType=VARCHAR},
+			resume = #{resume, jdbcType=VARCHAR},
+			winning_record = #{winningRecord, jdbcType=VARCHAR},
+			results = #{results, jdbcType=VARCHAR},
+			region = #{region, jdbcType=VARCHAR},
+			identity_code = #{identityCode, jdbcType=VARCHAR},
+			commit_flag = #{commitFlag, jdbcType=VARCHAR},
+			enter_trml = #{enterTrml, jdbcType=VARCHAR},
+			update_by = #{updateBy, jdbcType=VARCHAR},
+			update_date = #{updateDate, jdbcType=VARCHAR},
+			remarks = #{remarks, jdbcType=VARCHAR}
+		WHERE id = #{id, jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="realDelete">
+		DELETE FROM relg_per
+		WHERE id = #{id}
+	</delete>
+	
+	<select id="getProvinceList" resultType="java.util.Map">
+		SELECT 
+			provinceID as ckey,
+			province as value
+		FROM
+			hat_province
+		ORDER BY
+			provinceID
+	</select>
+	
+	<select id="getCityList" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT 
+			cityID as ckey,
+			city as value
+		FROM
+			hat_city
+		WHERE
+			father=#{father}
+		ORDER BY
+			cityID
+	</select>
+	
+	<select id="getAreaList" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT 
+			areaID as ckey,
+			area as value
+		FROM
+			hat_area
+		WHERE
+			father=#{father}
+		ORDER BY
+			areaID
+	</select>
+	
+	
+	
+	
+</mapper>
