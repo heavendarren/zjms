@@ -32,6 +32,7 @@ public class DataEditPanel1 extends JPanel implements ActionListener {
     JLabel l_name = new JLabel("姓名");
     JLabel l_sex = new JLabel("性别");
     JLabel l_birth = new JLabel("出生年月日");
+
     JLabel l_photo = new JLabel("照片");
     JLabel l_nation = new JLabel("民族");
     JLabel l_nativePlace = new JLabel("籍贯");
@@ -57,6 +58,7 @@ public class DataEditPanel1 extends JPanel implements ActionListener {
     JTextField name1 = new JTextField();
     JComboBox<Item> sex = new JComboBox<Item>();  
     JTextField birth = new JTextField();
+	DatePickerButton birthButton=new DatePickerButton(birth);
     JTextField photo = new JTextField();
 
     JComboBox<Item> nation = new JComboBox<Item>();
@@ -70,7 +72,10 @@ public class DataEditPanel1 extends JPanel implements ActionListener {
 
     JComboBox<Item> politicsStatus = new JComboBox<Item>();  
     JTextField partyTime = new JTextField();
+    DatePickerButton partyTimeButton=new DatePickerButton(partyTime);
+
     JTextField startingWorkTime = new JTextField();
+	DatePickerButton startingWorkTimeButton=new DatePickerButton(startingWorkTime);
 
     JTextField workUnitPosition = new JTextField();
     JTextField health = new JTextField();
@@ -126,6 +131,8 @@ public class DataEditPanel1 extends JPanel implements ActionListener {
 		
 		l_birth.setBounds(10, 45, 115, 20);
 		birth.setBounds(135, 45, 200, 20);
+		birthButton.setBounds(340,45,20,20);
+		this.add(birthButton);
         this.add(l_birth);
         this.add(birth);
 
@@ -210,11 +217,15 @@ public class DataEditPanel1 extends JPanel implements ActionListener {
         
         l_partyTime.setBounds(365, 120, 115, 20);
         partyTime.setBounds(490, 120, 200, 20);
+		partyTimeButton.setBounds(695,120,20,20);
+		this.add(partyTimeButton);
         this.add(l_partyTime);
         this.add(partyTime);
 
         l_startingWorkTime.setBounds(10, 145, 115, 20);
         startingWorkTime.setBounds(135, 145, 200, 20);
+		startingWorkTimeButton.setBounds(340,145,20,20);
+		this.add(startingWorkTimeButton);
         this.add(l_startingWorkTime);
         this.add(startingWorkTime);      
         

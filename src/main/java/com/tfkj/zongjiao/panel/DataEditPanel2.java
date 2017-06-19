@@ -36,6 +36,7 @@ public class DataEditPanel2 extends JPanel implements ActionListener {
 
     JLabel l_sex = new JLabel("性别");
     JLabel l_birth = new JLabel("出生年月日");
+
     JLabel l_photo = new JLabel("照片");
     JLabel l_nation = new JLabel("民族");
     JLabel l_nativePlace = new JLabel("籍贯");
@@ -62,6 +63,7 @@ public class DataEditPanel2 extends JPanel implements ActionListener {
     JTextField relgName = new JTextField();
     JComboBox<Item> sex = new JComboBox<Item>();  
     JTextField birth = new JTextField();
+	DatePickerButton birthButton=new DatePickerButton(birth);
     JTextField photo = new JTextField();
     JComboBox<Item> nation = new JComboBox<Item>();
     JComboBox<Item> nativePlaceP;
@@ -77,7 +79,7 @@ public class DataEditPanel2 extends JPanel implements ActionListener {
     JComboBox<Item> religion = new JComboBox<Item>();  
     JTextField relgIdentity = new JTextField();
     JTextField startingRelgTime = new JTextField();
-
+	DatePickerButton startingRelgTimeButton=new DatePickerButton(startingRelgTime);
     JTextField reglPlace = new JTextField();
     JTextField relgPosition = new JTextField();
     JTextField health = new JTextField();
@@ -140,7 +142,9 @@ public class DataEditPanel2 extends JPanel implements ActionListener {
 		
 		l_birth.setBounds(10, 45, 115, 20);
 		birth.setBounds(135, 45, 200, 20);
+		birthButton.setBounds(340,45,20,20);
         this.add(l_birth);
+        this.add(birthButton);
         this.add(birth);
 
         l_nation.setBounds(365,45,115,20);
@@ -232,13 +236,16 @@ public class DataEditPanel2 extends JPanel implements ActionListener {
         
         l_relgIdentity.setBounds(365, 170, 115, 20);
         relgIdentity.setBounds(490, 170, 200, 20);
+
         this.add(l_relgIdentity);
         this.add(relgIdentity);
 
         l_startingRelgTime.setBounds(10, 195, 115, 20);
         startingRelgTime.setBounds(135, 195, 200, 20);
+		startingRelgTimeButton.setBounds(340,195,20,20);
         this.add(l_startingRelgTime);
-        this.add(startingRelgTime);      
+        this.add(startingRelgTime);
+        this.add(startingRelgTimeButton);
         
         l_reglPlace.setBounds(365, 195, 115, 20);
         reglPlace.setBounds(490, 195, 200, 20);

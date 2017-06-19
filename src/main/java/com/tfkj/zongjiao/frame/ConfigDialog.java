@@ -2,6 +2,7 @@ package com.tfkj.zongjiao.frame;
 
 
 import com.tfkj.zongjiao.App;
+import com.tfkj.zongjiao.entity.Item;
 import com.tfkj.zongjiao.util.FileUtils;
 import com.tfkj.zongjiao.util.PropertiesHelper;
 import org.apache.derby.iapi.services.io.FileUtil;
@@ -12,7 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Properties;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
 
 /**
  * Created by wangqingxiang on 2017/5/22.
@@ -31,6 +34,10 @@ public class ConfigDialog extends JDialog implements ActionListener {
 
     JButton button1 = new JButton("...");
 
+
+    JComboBox<Item> region = new JComboBox<Item>();
+
+    java.util.List<Item> regionList;
 
     JPanel panel = new JPanel();
     JButton button5 = new JButton("保存");
@@ -61,9 +68,11 @@ public class ConfigDialog extends JDialog implements ActionListener {
 
 
         label4.setBounds(10, 80, 100, 30);
-        text4.setBounds(120, 80, 200, 30);
+        region.setBounds(120, 80, 200, 30);
+
+        loadRegion();
         this.add(label4);
-        this.add(text4);
+        this.add(region);
 //
 
 
@@ -99,6 +108,32 @@ public class ConfigDialog extends JDialog implements ActionListener {
 
     }
 
+
+    private void loadRegion(){
+        Properties regionPro = new Properties();
+        try{
+
+            InputStream in=ClassLoader.getSystemResourceAsStream("region.properties");
+            InputStreamReader isr = new InputStreamReader(in, "UTF-8");
+            regionPro.load(isr);
+            in.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        String s = (String) regionPro.get("regionList");
+
+        String[] list = s.split(",");
+        regionList = new ArrayList<Item>();
+        for (int i=0; i<list.length;i++) {
+            String[] r = list[i].split(":");
+            Item item = new Item(r[0], r[1]);
+            regionList.add(item);
+            region.addItem(item);
+        }
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(button1)) {
@@ -120,7 +155,7 @@ public class ConfigDialog extends JDialog implements ActionListener {
             pro.setProperty("imagedir", text1.getText() + "/img");
             pro.setProperty("outdir", text1.getText() + "/out");
             pro.setProperty("backupdir", text1.getText() + "/back");
-            pro.setProperty("areacode", text4.getText());
+            pro.setProperty("areacode", ((Item)region.getSelectedItem()).getKey());
             pro.setProperty("derbyhome", text1.getText() + "/db");
 
             PropertiesHelper.store(pro);
