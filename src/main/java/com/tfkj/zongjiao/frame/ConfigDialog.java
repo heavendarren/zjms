@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class ConfigDialog extends JDialog implements ActionListener {
     JLabel label1 = new JLabel("请选择文件路径");
-    JLabel label4 = new JLabel("区县编号");
+    JLabel label4 = new JLabel("请选择所属单位");
     JLabel label5 = new JLabel("数据库地址");
     JTextField text1 = new JTextField();
 
@@ -161,13 +161,14 @@ public class ConfigDialog extends JDialog implements ActionListener {
             PropertiesHelper.store(pro);
             finished = true;
 
+
             //复制db到指定的文件夹
             String dbhome = text1.getText();
             try {
                 String path= App.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 
                 path = path.substring(1,path.lastIndexOf("/"))+"/db/zongjiao";
-                System.out.println(path);
+
                 FileUtils.copyDirectoryCover(path, dbhome+"/db/zongjiao",true);
             }catch (Exception f){
                 f.printStackTrace();
